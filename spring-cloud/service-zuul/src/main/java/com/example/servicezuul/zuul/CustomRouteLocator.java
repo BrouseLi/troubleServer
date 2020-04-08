@@ -6,8 +6,6 @@ import org.springframework.cloud.netflix.zuul.filters.RefreshableRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.SimpleRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties.ZuulRoute;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
 import java.util.LinkedHashMap;
@@ -21,13 +19,13 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
 
     public final static Logger logger = LoggerFactory.getLogger(CustomRouteLocator.class);
 
-    private JdbcTemplate jdbcTemplate;
+    //private JdbcTemplate jdbcTemplate;
 
     private ZuulProperties properties;
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
+    /*public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
-    }
+    }*/
 
     public CustomRouteLocator(String servletPath, ZuulProperties properties) {
         super(servletPath, properties);
@@ -53,7 +51,7 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
         //从application.properties中加载路由信息
         routesMap.putAll(super.locateRoutes());
         //从db中加载路由信息
-        routesMap.putAll(locateRoutesFromDB());
+        //routesMap.putAll(locateRoutesFromDB());
         //优化一下配置
         LinkedHashMap<String, ZuulRoute> values = new LinkedHashMap<>();
         for (Map.Entry<String, ZuulRoute> entry : routesMap.entrySet()) {
@@ -73,7 +71,7 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
         return values;
     }
 
-    private Map<String, ZuulRoute> locateRoutesFromDB(){
+    /*private Map<String, ZuulRoute> locateRoutesFromDB(){
         Map<String, ZuulRoute> routes = new LinkedHashMap<>();
         List<ZuulRouteVO> results = jdbcTemplate.query("select * from gateway_api_define where enabled = true ",new BeanPropertyRowMapper<>(ZuulRouteVO.class));
         for (ZuulRouteVO result : results) {
@@ -89,7 +87,7 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
             routes.put(zuulRoute.getPath(),zuulRoute);
         }
         return routes;
-    }
+    }*/
 
     public static class ZuulRouteVO {
 

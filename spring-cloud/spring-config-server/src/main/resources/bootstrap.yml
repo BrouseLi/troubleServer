@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    #active: dev,native
+    active: dev,git
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://localhost:8090/root/springcloud-config.git
+          #git项目可能有多个目录，但是配置文件可能会在某一目录下，可以指定目录
+          search-paths: /
+          username: root
+          password: 12345678
+          repos:
+            #不同环境的不同配置仓库
+            sms-serivce-production:
+              pattern: '*/production'
+              uri: http://172.16.4.105:10800/root/sms-serivce-production.git
+            #不同项目不同库
+            web-app-service:
+              pattern:
+                - web-app-service/**

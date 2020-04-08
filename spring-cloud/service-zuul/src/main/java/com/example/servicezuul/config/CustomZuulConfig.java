@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+
 
 /**
  * Created by xujingfeng on 2017/4/1.
@@ -19,7 +19,7 @@ public class CustomZuulConfig {
     ZuulProperties zuulProperties;
     @Autowired
     ServerProperties server;
-    @Autowired
+  /*  @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Bean
@@ -27,6 +27,6 @@ public class CustomZuulConfig {
         CustomRouteLocator routeLocator = new CustomRouteLocator(this.server.getServlet().getContextPath(), this.zuulProperties);
         routeLocator.setJdbcTemplate(jdbcTemplate);
         return routeLocator;
-    }
+    }*/
 
 }
